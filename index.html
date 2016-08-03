@@ -4,29 +4,35 @@
 	<meta charset="utf-8">
 	<title>Page</title>
 	<script src = "https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div id="container">
-		<table id="table-cities" class="table">
-		</table>
-		<div id="form-input" class="form-input">
-			<input id="city" class="form-input__fld-city" type="text">
-			<input id="street" class="form-input__fld-str" type="text">
-			<input id="count-house" class="form-input__fld-cnt" type="text">
+
+	<div class="container">
+		<div class="table-cities__tools">
+			<button id="full-ver">Full version</button>
+			<button id="compact-ver">Compact version</button>		
+			<button id="srch-max">Max count</button>
+			<button id="srch-min">Min count</button>
+		</div>
+
+		<table id="table-cities" class="table-cities"></table>
+
+		<div id="form-edit" class="form-input">
+			<input id="city" class="form-input__fld-city" type="text" placeholder="Enter city">
+			<input id="street" class="form-input__fld-str" type="text" placeholder="Enter street">
+			<input id="count-house" class="form-input__fld-cnt" type="text" placeholder="Enter count of houses">
 			<button class="form-input__btn-add">Add</button>
 		</div>
-		<button id="srch-max">MAX</button>
-		<button id="srch-min">MIN</button>
 	</div>
 
-
-	<script type="text/template" id="table-tmpl">
+	<script type="text/template" id="table-tmpl-max">
 		<thead>
-			<tr>
+			<tr class="table-cities__head">
 				<th>Id</th>
 				<th>City</th>
 				<th>Street</th>
-				<th>CountOfHouses</th>
+				<th>Count of houses</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -37,7 +43,23 @@
 					<td><%-item.city%></td>
 					<td><%-item.street%></td>
 					<td><%-item.countOfHouses%></td>
-					<td><button class="table-cities__btn-del">X</button></td>
+					<td><button class="table-cities__btn-del">Remove</button></td>
+				</tr>
+			<% }); %>
+		</tbody>
+	</script>
+	<script type="text/template" id="table-tmpl-min">
+		<thead>
+			<tr class="table-cities__head">
+				<th>City, Street - Count of houses</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% _.forEach(city, function(item) { %>
+				<tr data-id="<%-item.id%>">
+					<td><%-item.city%>, <%-item.street%> - <%-item.countOfHouses%></td>
+					<td><button class="table-cities__btn-del">Remove</button></td>
 				</tr>
 			<% }); %>
 		</tbody>

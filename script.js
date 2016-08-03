@@ -23,31 +23,51 @@ var cities = [
 	city: "Moscow",
 	street: "Mira",
 	countOfHouses: 785
+	},
+	{id: 6,
+	city: "Saratov",
+	street: "Georgiya Dimitrova",
+	countOfHouses: 69
 	}
 ];
 
-(function (arrCities, tmpl) {
+(function (arrCities, tmplFull, tmplCompact) {
 	"use strict"
 	var table = document.getElementById("table-cities"),
+		tmpl = tmplFull,
 		btnAdd = document.querySelector(".form-input__btn-add"),
 		btnSrchMaxHome = document.querySelector("#srch-max"),
-		btnSrchMinHome = document.querySelector("#srch-min");
+		btnSrchMinHome = document.querySelector("#srch-min"),
+		btnFullVer = document.querySelector("#full-ver"),
+		btnCompactVer = document.querySelector("#compact-ver");
+
 
 	btnAdd.onclick = addRow;
+
 	btnSrchMaxHome.onclick =function() { 
 		var num = _.maxBy(arrCities, "countOfHouses");
 		alert(num.countOfHouses);
 	};
+
 	btnSrchMinHome.onclick =function() { 
 		var num = _.minBy(arrCities, "countOfHouses");
 		alert(num.countOfHouses);
+	};
+
+	btnFullVer.onclick = function(){
+		tmpl = tmplFull;
+		createTable();
+	};
+
+	btnCompactVer.onclick = function(){
+		tmpl = tmplCompact;
+		createTable();
 	};
 
 	table.onclick = function(e) {
 		if (e.target.tagName !== "BUTTON") return;
 		delRow(e.target);
 	};
-	
 
 	function createTable() {
 		var compiled = _.template(tmpl);
@@ -57,18 +77,18 @@ var cities = [
 	function delRow (target) {
 		var tr = target.closest("tr");
 		_.pullAllBy (arrCities, [{id : +tr.dataset.id}], "id");
-		createTable();			
+		createTable(tmpl);			
 	};
 	
 	function addRow() {
-		var form = document.getElementById("form-input"),
-			id = arrCities.length ? arrCities[arrCities.length-1].id : 0;
+		var form = document.getElementById("form-edit"),
+			lastId = arrCities.length ? arrCities[arrCities.length-1].id : 0;
 		
 		arrCities.push({
-			id: ++id,
-			city: form.querySelector('#city').value,
-			street: form.querySelector('#street').value,
-			countOfHouses: form.querySelector('#count-house').value
+			id: ++lastId,
+			city: form.querySelector("#city").value,
+			street: form.querySelector("#street").value,
+			countOfHouses: form.querySelector("#count-house").value
 		});
 			
 		createTable();
@@ -76,4 +96,4 @@ var cities = [
 
 	createTable();
 
-})(cities, document.getElementById("table-tmpl").innerHTML);
+})(cities, document.getElementById("table-tmpl-max").innerHTML, document.getElementById("table-tmpl-min").innerHTML);
