@@ -1,0 +1,42 @@
+.container {
+	width: 100%;
+}
+
+.table-cities {
+	width: 70%;
+	min-width: 450px;
+	border: 1px solid #6E9CC9;
+	border-collapse: collapse;
+	margin: 30px 0;
+	color:#08457E;
+	text-align: left;
+}
+
+.table-cities .table-cities__head {
+	height: 30px;
+	background-color: #6E9CC9;
+	font-size: 1.3em;
+}
+
+.table-cities tr:nth-child(even) {
+	background-color: #E1EDF9;}
+
+.table-cities th:last-child,
+.table-cities td:last-child {
+	width: 15px;
+	padding: 0;
+}
+
+.table-cities__btn-del {
+	width:100%;
+	height: 100%;
+	padding: 0 6px;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.table-cities__btn-del:hover {
+	background-color: #6E9CC9;
+	color:red;
+}
